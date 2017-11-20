@@ -27,4 +27,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.code-type {}
 </style>
