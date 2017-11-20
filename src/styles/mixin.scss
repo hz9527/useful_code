@@ -1,0 +1,7 @@
+@mixin bg-image($url, $ext : ".png") {
+  background-image: url($url + "@2x" + $ext);
+  background-size: contain;
+  @media (min-resolution: 3dppx) {
+    background-image: url($url + "@3x" + $ext);
+  }
+}
