@@ -8,8 +8,8 @@ js
 获取0-9a-z10位数随机字符串
 
 ## title
-test testhhhh
-test
+生成一个10位的包含0-9a-z的字符串  
+Number.toString(n) n为进制
 
 ## pre
 ```js

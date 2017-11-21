@@ -14,7 +14,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
   },
   // cheap-module-eval-source-map is faster for development
   devtool: config.dev.devtool,
-  
+
   // these devServer options should be customized in /config/index.js
   devServer: {
     clientLogLevel: 'warning',
@@ -37,7 +37,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
   plugins: [
     new webpack.DefinePlugin({
       'process.env': require('../config/dev.env')
-    }), 
+    }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin(), // HMR shows correct file names in console on update.
     new webpack.NoEmitOnErrorsPlugin(),
@@ -49,13 +49,16 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     }),
   ]
 })
-
+const transMd = require('./transMd.js')
 module.exports = new Promise((resolve, reject) => {
   portfinder.basePort = process.env.PORT || config.dev.port
   portfinder.getPort((err, port) => {
     if (err) {
       reject(err)
     } else {
+      // trans mdPages dir file into vue file
+      console.log(transMd)
+      transMd()
       // publish the new Port, necessary for e2e tests
       process.env.PORT = port
       // add port to devServer config

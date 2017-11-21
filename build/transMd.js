@@ -7,12 +7,14 @@ function run () {
     fs.watch(resolve('./mdPages'), (event, filename) => {
       if (event === 'change') {
         // 重写模版更新router
+        console.log(123)
         buildItem(filename) // 暂不支持更改codeType
       } else {
         // 在list中查找，如果不存在则添加，如果存在则删除
-        var item = list.find(item => item.name === filename)
-        if (item) {
-          delFile({name: item.name.replace('.md', ''), codeType: item.codeType})
+        var ind = list.findIndex(item => item.name === filename)
+        if (ind > -1) {
+          delFile({name: list[ind].name.replace('.md', ''), codeType: list[ind].codeType})
+          list.splice(ind, 1)
         } else {
           buildItem(filename, info => {
             list.push({name: filename, codeType: info.codeType})
@@ -144,12 +146,10 @@ function delFile (info) { // {name, codeType}
     if (err) {
       console.log(err)
     } else {
-      console.log(info)
       var con = fd.toString()
       var importReg = new RegExp(`import.+${info.name}.+${info.name}'\\n`, 'g')
       var routeReg = new RegExp(`{\\n{1}\\s{6}path:\\s+'/${info.name}'(\\s|\\S)+},`, 'g')
       con = con.replace(importReg, '').replace(routeReg, '').replace(/},(\s|\S)+{/g, '},\n    {')
-      console.log(con)
       // del file
       if (fs.existsSync(resolve(`./pages/${info.codeType}/${info.name}.vue`))) {
         fs.unlinkSync(resolve(`./pages/${info.codeType}/${info.name}.vue`))
@@ -221,4 +221,4 @@ function buildItem (fileName, addCb) {
         }).catch(e => e)
     }).catch(e => e)
 }
-run()
+module.exports = run
