@@ -5,6 +5,8 @@ if [[ $choose =~ ^[Yy]$ ]];then
   if [[ 0 == $? ]];then
     echo 'checkout success'
     # 将dist中文件移至根目录
+    rm index.html
+    rm -rf ./static
     mv ./dist/* ./
     echo 'move file success'
     rm -rf ./dist
