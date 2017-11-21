@@ -1,7 +1,12 @@
 export default function (routes) {
   var result = {} // codetype => subTips: {tip list}
-  console.log(routes)
-  routes.forEach(route => {
+  routes.forEach(ro => {
+    var route = {
+      codeType: ro.codeType,
+      tips: ro.tips,
+      description: ro.description,
+      path: ro.path
+    }
     if (route.codeType in result) {
       result[route.codeType].subTips.all.push(route)
     } else {

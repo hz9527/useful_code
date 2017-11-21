@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Index from '@/pages/index'
-import HelloWorld from '@/components/HelloWorld'
+// @end - components
 
 Vue.use(Router)
 const typeConf = {
@@ -39,14 +39,6 @@ export default new Router({
       path: '/',
       name: 'index',
       component: Index
-    },
-    {
-      path: '/random_str',
-      name: 'randomStr',
-      component: HelloWorld,
-      codeType: typeConf.js,
-      tips: getTips(0, 2),
-      description: '获取0-9a-z10位数随机字符串'
     },
     {
       path: '*',

@@ -9,8 +9,8 @@
     <div class="icon"><b @click='iconClick'></b></div>
     <div class="list-panel" v-show='showList'>
       <div class="no-data" v-show='list.length === 0'>暂无搜索结果</div>
-      <div class="list" v-show='list.length > 0'>
-        <div class="list-item" v-for='item in list' :key='item.path'>{{item.description}}</div>
+      <div class="list" v-show='list.length > 0' @click='clickItem'>
+        <div class="list-item" v-for='item in list' :key='item.path' :data-info='item.path'>{{item.description}}</div>
       </div>
     </div>
   </div>
@@ -50,6 +50,11 @@ export default {
     this._allList = this.$router.options.routes.slice(1, -1)
   },
   methods: {
+    clickItem (e) {
+      if ('info' in e.target.dataset) {
+        this.$router.push({path: e.target.dataset.info})
+      }
+    },
     iconClick () {
       if (this.page === 'index') {
         this.showInput = true
