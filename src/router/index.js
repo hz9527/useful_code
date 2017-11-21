@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Index from '@/pages/index'
-import randomStr from '@/pages/js/randomStr'
 // @end - components
 
 Vue.use(Router)
@@ -40,14 +39,6 @@ export default new Router({
       path: '/',
       name: 'index',
       component: Index
-    },
-    {
-      path: '/randomStr',
-      name: 'randomStr',
-      component: randomStr,
-      codeType: typeConf.js,
-      tips: getTips(1, 1),
-      description: '获取0-9a-z10位数随机字符串'
     },
     {
       path: '*',
