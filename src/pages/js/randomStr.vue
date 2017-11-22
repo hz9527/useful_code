@@ -1,5 +1,5 @@
 <template lang="html">
-    <div class="page">
+    <div class="hz-page">
       <div class="hz-title">生成一个10位的包含0-9a-z的字符串  
 Number.toString(n) n为进制
 

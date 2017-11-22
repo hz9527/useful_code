@@ -59,15 +59,18 @@ function transMdToInfo (fileName) {
         result.tips = getContent(md, /## tips\s?\n.+\n/g)
         result.description = getContent(md, /## description\s?\n.+\n/g)
         result.title = getContent(md, /## title\s?\n(\s|\S)+##/g, true)
-        result.title = result.title.replace(/## title\s?\n/, '').replace('##', '')
         result.code = getCode(md, /## pre\s?\n```(\s|\S)+```/g) // code type
         for (let key in result) {
           if (result[key] === false) {
             console.warn(`${key} is invaild`)
-            fail('md is invaild')
+            suc(false)
+            break
           }
         }
-        suc(result)
+        if (!Object.keys(result).some(key => result[key] === false)) {
+          result.title = result.title.replace(/## title\s?\n/, '').replace('##', '')
+          suc(result)
+        }
       }
     })
   })
@@ -118,7 +121,7 @@ function getTips (tips) { // [x, y] [String, String]
 }
 function getTem (info) {
   return `<template lang="html">
-    <div class="page">
+    <div class="hz-page">
       <div class="hz-title">${info.title}</div>
       <pre v-hz-pre>
         <code class="${info.code.type}">
@@ -225,4 +228,5 @@ function buildItem (fileName, addCb) {
         }).catch(e => e)
     }).catch(e => e)
 }
+// run()
 module.exports = run

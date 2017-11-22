@@ -1,3 +1,13 @@
+@import './rule.scss';
 // my reset
 
 // common class
+.hz-page {
+  padding: 10px;
+}
+.hz-title {
+  padding: 10px;
+  background: $titleBg;
+  margin-bottom: 15px;
+  border-radius: 3px;
+}

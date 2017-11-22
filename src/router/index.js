@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Index from '@/pages/index'
 import randomStr from '@/pages/js/randomStr'
+import resetCss from '@/pages/css/resetCss'
 // @end - components
 
 Vue.use(Router)
@@ -48,6 +49,14 @@ export default new Router({
       codeType: typeConf.js,
       tips: getTips(1, 1),
       description: '获取0-9a-z10位数随机字符串'
+    },
+    {
+      path: '/resetCss',
+      name: 'resetCss',
+      component: resetCss,
+      codeType: typeConf.css,
+      tips: getTips(1, 1),
+      description: 'reset css'
     },
     {
       path: '*',
