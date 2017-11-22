@@ -4,6 +4,7 @@ if [[ $choose =~ ^[Yy]$ ]];then
   git checkout gh-pages
   if [[ 0 == $? ]];then
     echo 'checkout success'
+    git pull origin gh-pages
     # 将dist中文件移至根目录
     rm index.html
     rm -rf ./static

@@ -2,25 +2,29 @@ var path = require('path')
 var fs = require('fs')
 var resolve = (p = '') => path.join(__dirname, '../src', p)
 var list = [] // {name: xx, codeType: xx}
+var child_process = require('child_process')
 function run () {
   buildAll(() => {
     fs.watch(resolve('./mdPages'), (event, filename) => {
-      if (event === 'change') {
-        // 重写模版更新router
-        console.log(123)
-        buildItem(filename) // 暂不支持更改codeType
-      } else {
-        // 在list中查找，如果不存在则添加，如果存在则删除
-        var ind = list.findIndex(item => item.name === filename)
-        if (ind > -1) {
-          delFile({name: list[ind].name.replace('.md', ''), codeType: list[ind].codeType})
-          list.splice(ind, 1)
-        } else {
-          buildItem(filename, info => {
-            list.push({name: filename, codeType: info.codeType})
-          })
+      child_process.exec('git branch', (err, st, sd) => {
+        if (st.indexOf('* master') > -1) {
+          if (event === 'change') {
+            // 重写模版更新router
+            buildItem(filename) // 暂不支持更改codeType
+          } else {
+            // 在list中查找，如果不存在则添加，如果存在则删除
+            var ind = list.findIndex(item => item.name === filename)
+            if (ind > -1) {
+              delFile({name: list[ind].name.replace('.md', ''), codeType: list[ind].codeType})
+              list.splice(ind, 1)
+            } else {
+              buildItem(filename, info => {
+                list.push({name: filename, codeType: info.codeType})
+              })
+            }
+          }
         }
-      }
+      })
     })
   })
 }
